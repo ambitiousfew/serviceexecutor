@@ -6,7 +6,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/cep21/serviceexecutor"
+	"github.com/ambitiousfew/serviceexecutor"
 )
 
 func ExampleMulti() {

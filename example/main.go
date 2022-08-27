@@ -7,7 +7,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/cep21/serviceexecutor"
+	"github.com/ambitiousfew/serviceexecutor"
 )
 
 type Printer struct {
