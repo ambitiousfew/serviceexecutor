@@ -1,4 +1,4 @@
-module github.com/cep21/serviceexecutor
+module github.com/ambitiousfew/serviceexecutor
 
 go 1.12
 
