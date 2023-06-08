@@ -107,19 +107,15 @@ func (m *Multi) Run() error {
 	return errFromManyErrors(errs)
 }
 
-// Shutdown ends all running services.  It is an error to call Shutdown twice.  If
-// Shutdown is called before we can call "Run" on services, it does nothing and returns nil.
+// Shutdown ends all running services.  It is an error to call Shutdown twice.
 func (m *Multi) Shutdown(ctx context.Context) error {
 	if atomic.SwapInt32(&m.shutdownCalled, 1) == 1 {
 		return &repeatedCalls{msg: "shutdown called twice"}
 	}
-	services := m.Services
-	m.runOnce.Do(func() {
-		services = nil
-	})
-	errs := make([]error, len(services))
-	for i := len(services) - 1; i >= 0; i-- {
-		s := services[i]
+
+	errs := make([]error, len(m.Services))
+	for i := len(m.Services) - 1; i >= 0; i-- {
+		s := m.Services[i]
 		m.Hooks.onServiceShutdownStarted(s)
 		err := s.Shutdown(ctx)
 		m.Hooks.onServiceShutdownFinished(s, err)
